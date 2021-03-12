@@ -8,23 +8,30 @@ import { Recipe } from './recipe.model';
 export class RecipeService {
   recipesAdded = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
-    new Recipe(
-      'Mango Lassi',
-      'A super tasty Mango Lassi -- just superb!!',
-      'https://www.whiskaffair.com/wp-content/uploads/2019/05/Mango-Lassi-1-3.jpg',
-      [new Ingredient('mangoes', 2), new Ingredient('youghurt', 1)]
-    ),
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     'Mango Lassi',
+  //     'A super tasty Mango Lassi -- just superb!!',
+  //     'https://www.whiskaffair.com/wp-content/uploads/2019/05/Mango-Lassi-1-3.jpg',
+  //     [new Ingredient('mangoes', 2), new Ingredient('youghurt', 1)]
+  //   ),
 
-    new Recipe(
-      'Palak Paneer',
-      'A simply superb combination of Palak and Paneer',
-      'https://i2.wp.com/www.vegrecipesofindia.com/wp-content/uploads/2013/05/palak-paneer-easy.jpg',
-      [new Ingredient('paneer', 20), new Ingredient('palak', 5)]
-    ),
-  ];
+  //   new Recipe(
+  //     'Palak Paneer',
+  //     'A simply superb combination of Palak and Paneer',
+  //     'https://i2.wp.com/www.vegrecipesofindia.com/wp-content/uploads/2013/05/palak-paneer-easy.jpg',
+  //     [new Ingredient('paneer', 20), new Ingredient('palak', 5)]
+  //   ),
+  // ];
+
+  private recipes: Recipe[] = [];
 
   constructor(private shoppingListService: ShoppingListService) {}
+
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesAdded.next(this.recipes.slice());
+  }
 
   getRecipes() {
     return this.recipes.slice();
